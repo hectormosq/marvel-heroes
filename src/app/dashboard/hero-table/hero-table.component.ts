@@ -41,17 +41,11 @@ export class HeroTableComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     console.log({ changes });
     if (changes['filter']) {
-      let objectFilter: any = {};
-
-      /*this.filter.forEach((item) => {
-        objectFilter[item.name] = item.name;
-      });*/
-
       this.heroesDataSource.filter = JSON.stringify(this.filter);
     }
 
     if (changes['heroes']) {
-      // this.heroesDataSource.data = this.heroes;
+      this.heroesDataSource.data = this.heroes;
     }
   }
 

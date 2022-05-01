@@ -7,9 +7,15 @@ import { MarvelHero } from '../models/marvel-hero';
   providedIn: 'root',
 })
 export class BackendApiService {
+  _heroes: MarvelHero[] = HeroesJson;
   constructor() {}
 
   getHeroes(): Observable<MarvelHero[]> {
-    return of(HeroesJson);
+    return of(this._heroes);
+  }
+
+  saveHero(hero: MarvelHero): Observable<MarvelHero> {
+    this._heroes.unshift(hero);
+    return of(hero);
   }
 }

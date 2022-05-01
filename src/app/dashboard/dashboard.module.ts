@@ -6,11 +6,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { HeroFilterComponent } from '../dashboard/hero-filter/hero-filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HeroTableComponent } from '../dashboard/hero-table/hero-table.component';
 import { HeroInfoComponent } from './hero-info/hero-info.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HeroEditComponent } from './hero-edit/hero-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HeroFilterComponent,
     HeroTableComponent,
     HeroInfoComponent,
+    HeroEditComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +32,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
 })
 export class DashboardModule {}

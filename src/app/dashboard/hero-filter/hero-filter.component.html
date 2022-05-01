@@ -1,0 +1,21 @@
+<mat-form-field class="hero-filter" appearance="fill">
+  <mat-label>Filter By Hero Name</mat-label>
+  <mat-chip-list #chipList aria-label="Hero Name Selection">
+    <mat-chip
+      *ngFor="let hero of heroNameList; let i = index"
+      (removed)="remove(i)"
+    >
+      {{ hero.name }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <input
+      placeholder="New name..."
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="add($event)"
+    />
+  </mat-chip-list>
+</mat-form-field>

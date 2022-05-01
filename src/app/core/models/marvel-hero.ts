@@ -7,3 +7,7 @@ export interface MarvelHero {
   occupationLabel: string;
   skillsLabel: string;
 }
+
+export interface HeroFilter {
+  name: string;
+}

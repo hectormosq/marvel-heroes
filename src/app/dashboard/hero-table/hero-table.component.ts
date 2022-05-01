@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -18,6 +20,8 @@ import { HeroFilter, MarvelHero } from '@app/core/models/marvel-hero';
 export class HeroTableComponent implements OnChanges, OnInit {
   @Input() filter: HeroFilter[];
   @Input() heroes: MarvelHero[];
+
+  @Output() showHero = new EventEmitter();
 
   heroesDataSource: MatTableDataSource<MarvelHero> =
     new MatTableDataSource<MarvelHero>();
@@ -60,6 +64,10 @@ export class HeroTableComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this._handleHeroes();
     this._configureFilter();
+  }
+
+  onClickHero(hero: MarvelHero) {
+    this.showHero.emit(hero);
   }
 
   private _handleHeroes() {

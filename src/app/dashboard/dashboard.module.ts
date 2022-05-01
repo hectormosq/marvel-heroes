@@ -9,9 +9,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeroFilterComponent } from '../dashboard/hero-filter/hero-filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HeroTableComponent } from '../dashboard/hero-table/hero-table.component';
+import { HeroInfoComponent } from './hero-info/hero-info.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [DashboardComponent, HeroFilterComponent, HeroTableComponent],
+  declarations: [
+    DashboardComponent,
+    HeroFilterComponent,
+    HeroTableComponent,
+    HeroInfoComponent,
+  ],
   imports: [
     CommonModule,
     MatTableModule,
@@ -20,6 +27,7 @@ import { HeroTableComponent } from '../dashboard/hero-table/hero-table.component
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatDialogModule
   ],
 })
 export class DashboardModule {}

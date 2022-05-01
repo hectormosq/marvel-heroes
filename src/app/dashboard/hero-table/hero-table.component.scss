@@ -1,3 +1,6 @@
 .hero-table {
   width: 100%;
+  &__row {
+    cursor: pointer;
+  }
 }

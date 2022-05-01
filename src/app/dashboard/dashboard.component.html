@@ -1,2 +1,6 @@
 <app-hero-filter (filter)="onFilter($event)"></app-hero-filter>
-<app-hero-table [heroes]="heroes" [filter]="filter"></app-hero-table>
+<app-hero-table
+  [heroes]="heroes"
+  [filter]="filter"
+  (showHero)="onShowHero($event)"
+></app-hero-table>

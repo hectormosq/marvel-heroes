@@ -1,6 +1,21 @@
 .hero-table {
-  width: 100%;
+  display: flex;
+  overflow: auto;
+  margin-bottom: 10px;
+  display: table;
+  border-collapse: collapse;
+  margin: 0px;
   &__row {
     cursor: pointer;
   }
 }
+
+.table-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+
+}
+

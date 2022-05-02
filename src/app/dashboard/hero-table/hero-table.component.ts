@@ -6,11 +6,19 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { HeroFilter, MarvelHero } from '@app/core/models/marvel-hero';
+import { D3Charts } from '@app/core/models/chart.model';
+import {
+  HeroChart,
+  HeroFilter,
+  HeroProp,
+  HeroPropChartMap,
+  MarvelHero,
+} from '@app/core/models/marvel-hero';
 
 @Component({
   selector: 'app-hero-table',
@@ -23,29 +31,42 @@ export class HeroTableComponent implements OnChanges, OnInit {
 
   @Output() showHero = new EventEmitter();
 
+  @ViewChild('pieChart') pieChart: TemplateRef<any>;
+  @ViewChild('barChart') barChart: TemplateRef<any>;
+
   heroesDataSource: MatTableDataSource<MarvelHero> =
     new MatTableDataSource<MarvelHero>();
+  heroesGroupedData: any = {};
+  HERO_CHART = HeroChart;
 
   columnsToDisplay = [
-    'nameLabel',
-    'skillsLabel',
-    'memberOfLabel',
-    'occupationLabel',
-    'genderLabel',
-    'citizenshipLabel',
-    'creatorLabel',
+    HeroProp.NAME,
+    HeroProp.SKILLS,
+    HeroProp.MEMBEROF,
+    HeroProp.OCCUPATION,
+    HeroProp.GENDER,
+    HeroProp.CITIZENSHIP,
+    HeroProp.CREATOR,
+  ];
+  columnsChart = [
+    HeroChart.NAME,
+    HeroChart.SKILLS,
+    HeroChart.MEMBEROF,
+    HeroChart.OCCUPATION,
+    HeroChart.GENDER,
+    HeroChart.CITIZENSHIP,
+    HeroChart.CREATOR,
   ];
 
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({ changes });
     if (changes['filter']) {
       this.heroesDataSource.filter = JSON.stringify(this.filter);
     }
 
     if (changes['heroes']) {
-      this.heroesDataSource.data = this.heroes;
+      this._handleHeroes();
     }
   }
 
@@ -56,7 +77,6 @@ export class HeroTableComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    this._handleHeroes();
     this._configureFilter();
   }
 
@@ -66,6 +86,27 @@ export class HeroTableComponent implements OnChanges, OnInit {
 
   private _handleHeroes() {
     this.heroesDataSource.data = this.heroes;
+    this.heroesGroupedData = {
+      [HeroChart.NAME]: {},
+      [HeroChart.SKILLS]: {},
+      [HeroChart.MEMBEROF]: {},
+      [HeroChart.OCCUPATION]: {},
+      [HeroChart.GENDER]: {},
+      [HeroChart.CITIZENSHIP]: {},
+      [HeroChart.CREATOR]: {},
+    };
+
+    this.heroes.forEach((hero: MarvelHero) => {
+      this.columnsToDisplay.forEach((key) => {
+        const chartKey = HeroPropChartMap[key];
+
+        this.heroesGroupedData[chartKey][hero[key]] = this.heroesGroupedData[
+          chartKey
+        ][hero[key]]
+          ? this.heroesGroupedData[chartKey][hero[key]] + 1
+          : 1;
+      });
+    });
   }
 
   private _configureFilter() {

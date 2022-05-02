@@ -6,7 +6,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HeroFilterComponent } from '../dashboard/hero-filter/hero-filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HeroTableComponent } from '../dashboard/hero-table/hero-table.component';
@@ -15,6 +15,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HeroEditComponent } from './hero-edit/hero-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { ChartSelectorPipe } from './hero-table/chart-selector.pipe';
+import { D3ChartsModule } from '@app/core/components/d3/d3-charts.module';
+import { ChartDataPipe } from './hero-table/chart-data.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     HeroTableComponent,
     HeroInfoComponent,
     HeroEditComponent,
+    ChartSelectorPipe,
+    ChartDataPipe,
   ],
   imports: [
     CommonModule,
@@ -35,7 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatExpansionModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    D3ChartsModule,
   ],
 })
 export class DashboardModule {}

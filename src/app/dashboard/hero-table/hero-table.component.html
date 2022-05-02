@@ -4,11 +4,35 @@
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let hero">{{ hero.nameLabel }}</td>
   </ng-container>
+  <ng-container matColumnDef="nameChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.NAME] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.NAME] | chartSelector]
+        "
+      ></ng-template>
+    </th>
+  </ng-container>
 
   <!-- Skills Column -->
   <ng-container matColumnDef="skillsLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Skills</th>
     <td mat-cell *matCellDef="let hero">{{ hero.skillsLabel }}</td>
+  </ng-container>
+  <ng-container matColumnDef="skillsChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.SKILLS] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.SKILLS] | chartSelector]
+        "
+      ></ng-template>
+    </th>
   </ng-container>
 
   <!-- MemberOf Column -->
@@ -16,11 +40,35 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Member Of</th>
     <td mat-cell *matCellDef="let hero">{{ hero.memberOfLabel }}</td>
   </ng-container>
+  <ng-container matColumnDef="memberOfChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.MEMBEROF] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.MEMBEROF] | chartSelector]
+        "
+      ></ng-template>
+    </th>
+  </ng-container>
 
   <!-- Occupation Column -->
   <ng-container matColumnDef="occupationLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Occupation</th>
     <td mat-cell *matCellDef="let hero">{{ hero.occupationLabel }}</td>
+  </ng-container>
+  <ng-container matColumnDef="occupationChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.OCCUPATION] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.OCCUPATION] | chartSelector]
+        "
+      ></ng-template>
+    </th>
   </ng-container>
 
   <!-- Gender Column -->
@@ -28,11 +76,35 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
     <td mat-cell *matCellDef="let hero">{{ hero.genderLabel }}</td>
   </ng-container>
+  <ng-container matColumnDef="genderChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.GENDER] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.GENDER] | chartSelector]
+        "
+      ></ng-template>
+    </th>
+  </ng-container>
 
   <!-- Citizenship Column -->
   <ng-container matColumnDef="citizenshipLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Citizenship</th>
     <td mat-cell *matCellDef="let hero">{{ hero.citizenshipLabel }}</td>
+  </ng-container>
+  <ng-container matColumnDef="citizenshipChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.CITIZENSHIP] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.CITIZENSHIP] | chartSelector]
+        "
+      ></ng-template>
+    </th>
   </ng-container>
 
   <!-- Creator Column -->
@@ -40,7 +112,33 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Creator</th>
     <td mat-cell *matCellDef="let hero">{{ hero.creatorLabel }}</td>
   </ng-container>
+  <ng-container matColumnDef="creatorChart">
+    <th mat-header-cell *matHeaderCellDef>
+      <ng-template
+        [ngTemplateOutletContext]="{
+          $implicit: heroesGroupedData[HERO_CHART.CREATOR] | chartData
+        }"
+        [ngTemplateOutlet]="
+          this[heroesGroupedData[HERO_CHART.CREATOR] | chartSelector]
+        "
+      ></ng-template>
+    </th>
+  </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row class="hero-table__row" *matRowDef="let hero; columns: columnsToDisplay" (click)="onClickHero(hero)"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsChart; sticky: true"></tr>
+  <tr
+    mat-row
+    class="hero-table__row"
+    *matRowDef="let hero; columns: columnsToDisplay"
+    (click)="onClickHero(hero)"
+  ></tr>
 </table>
+
+<ng-template #pieChart let-data>
+  <app-bar-chart [data]="data"></app-bar-chart>
+</ng-template>
+
+<ng-template #barChart let-data>
+  <app-pie-chart [data]="data"></app-pie-chart>
+</ng-template>

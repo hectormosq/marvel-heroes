@@ -1,0 +1,13 @@
+.edit-edit {
+  &__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    max-width: 100vw;
+  }
+  &__actions {
+    grid-template-columns: 1fr 1fr ;
+    display: grid;
+    max-width: 100vw;
+  }
+}

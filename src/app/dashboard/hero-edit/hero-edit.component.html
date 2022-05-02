@@ -1,4 +1,4 @@
-<mat-expansion-panel
+<mat-expansion-panel class="hero-edit"
   [expanded]="editing"
   (opened)="editing = true"
   (closed)="editing = false"
@@ -6,13 +6,9 @@
 >
   <mat-expansion-panel-header>
     <mat-panel-title>{{ "hero-actions.create" | translate }}</mat-panel-title>
-    <mat-panel-description>
-      <mat-icon>account_circle</mat-icon>
-      <span>{{ "hero-actions.description" | translate }}</span>
-    </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <form [formGroup]="heroForm">
+  <form class="edit-edit__form" [formGroup]="heroForm">
     <mat-form-field appearance="fill">
       <mat-label>{{ "hero.nameLabel" | translate }}</mat-label>
       <input type="text" matInput formControlName="nameLabel" />
@@ -50,7 +46,7 @@
   </form>
 
   <!-- #docregion action-bar -->
-  <mat-action-row>
+  <mat-action-row class="edit-edit__actions">
     <button mat-button color="secondary" (click)="cancel()">
       {{ "actions.cancel" | translate }}
     </button>

@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.hero-card {
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__label {
+    font-weight: 500;
+  }
+}

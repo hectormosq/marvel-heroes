@@ -19,6 +19,7 @@ import { ChartSelectorPipe } from './hero-table/chart-selector.pipe';
 import { D3ChartsModule } from '@app/core/components/d3/d3-charts.module';
 import { ChartDataPipe } from './hero-table/chart-data.pipe';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     D3ChartsModule,
     MatPaginatorModule,
+    TranslateModule,
   ],
 })
 export class DashboardModule {}

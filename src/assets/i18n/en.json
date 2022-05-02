@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "nameLabel": "Name",
+    "skillsLabel": "Skills",
+    "memberOfLabel": "Member of",
+    "occupationLabel": "Occupation",
+    "genderLabel": "Gender",
+    "citizenshipLabel": "Citizenship",
+    "creatorLabel": "Creator"
+  },
+  "hero-actions": {
+    "create": "Create Hero",
+    "description": "Type hero details"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "filter": {
+    "title": "Filter by hero name",
+    "placeholder": "Name"
+  }
+}

@@ -64,7 +64,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3.axisBottom(x))
       .selectAll('text')
-      .attr('transform', 'translate(-10,0)rotate(-45)')
+      .attr('transform', 'translate(-10,0)rotate(-25)')
       .style('text-anchor', 'end');
 
     const y = d3

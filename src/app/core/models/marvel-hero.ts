@@ -41,3 +41,13 @@ export const HeroPropChartMap = {
   [HeroProp.OCCUPATION]: HeroChart.OCCUPATION,
   [HeroProp.SKILLS]: HeroChart.SKILLS,
 };
+
+export const HeroCardFields = [
+  HeroProp.NAME,
+  HeroProp.SKILLS,
+  HeroProp.MEMBEROF,
+  HeroProp.OCCUPATION,
+  HeroProp.GENDER,
+  HeroProp.CITIZENSHIP,
+  HeroProp.CREATOR,
+];

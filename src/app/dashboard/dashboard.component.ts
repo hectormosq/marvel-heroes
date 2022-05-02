@@ -37,7 +37,10 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   onShowHero(hero: MarvelHero) {
-    const dialogRef = this._dialog.open(HeroInfoComponent, { data: { hero } });
+    const dialogRef = this._dialog.open(HeroInfoComponent, {
+      data: { hero },
+      width: '400px',
+    });
   }
 
   private _getHeroes() {

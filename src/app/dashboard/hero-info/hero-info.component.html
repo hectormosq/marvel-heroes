@@ -1,1 +1,13 @@
-<pre>{{ data.hero | json }}</pre>
+<div class="hero-card">
+  <h2 mat-dialog-title>
+    {{ hero.nameLabel }}
+  </h2>
+  <mat-dialog-content>
+    <div *ngFor="let key of heroCardFields" class="hero-card__row">
+      <div class="hero-card__label">
+        {{ "hero." + key | translate }}
+      </div>
+      <div class="hero-card__item">{{ hero[key] }}</div>
+    </div>
+  </mat-dialog-content>
+</div>

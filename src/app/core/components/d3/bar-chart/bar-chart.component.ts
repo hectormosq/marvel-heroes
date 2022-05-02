@@ -21,8 +21,8 @@ export class BarChartComponent implements OnInit, OnChanges {
   @Input() data: ChartData[] = [];
 
   private svg;
-  private margin = 40;
-  private width = 200 - this.margin * 2;
+  private margin = 60;
+  private width = 300 - this.margin * 2;
   private height = 200 - this.margin * 2;
 
   constructor() {}
@@ -57,7 +57,6 @@ export class BarChartComponent implements OnInit, OnChanges {
       .scaleBand()
       .range([0, this.width])
       .domain(data.map((d) => d.key))
-      .padding(0.1);
 
     const gx = this.svg
       .append('g')
@@ -82,7 +81,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       .join('rect')
       .attr('x', (d: ChartData) => x(d.key))
       .attr('y', (d: ChartData) => y(d.count))
-      .attr('width', x.bandwidth() - 5)
+      .attr('width', x.bandwidth() - 1)
       .attr('height', (d) => this.height - y(d.count))
       .exit()
       .remove();

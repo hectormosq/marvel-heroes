@@ -21,9 +21,9 @@ export class ChartSelectorPipe implements PipeTransform {
 }
 
 function _pieChart(count) {
-  return count <= 5;
+  return count > 5;
 }
 
 function _barChart(count) {
-  return count > 5;
+  return count <= 5;
 }

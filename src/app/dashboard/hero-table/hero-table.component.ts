@@ -64,10 +64,14 @@ export class HeroTableComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filter']) {
       this.heroesDataSource.filter = JSON.stringify(this.filter);
+      if (!changes['filter'].firstChange) {
+        this._buildChartData(this.heroesDataSource.filteredData);
+      }
     }
 
     if (changes['heroes']) {
       this._handleHeroes();
+      this._buildChartData();
     }
   }
 
@@ -88,7 +92,10 @@ export class HeroTableComponent implements OnChanges, OnInit {
 
   private _handleHeroes() {
     this.heroesDataSource.data = this.heroes;
-    this.heroesGroupedData = {
+  }
+
+  private _buildChartData(currentHeroes = this.heroes) {
+    const heroesGroupedData = {
       [HeroChart.NAME]: {},
       [HeroChart.SKILLS]: {},
       [HeroChart.MEMBEROF]: {},
@@ -98,17 +105,19 @@ export class HeroTableComponent implements OnChanges, OnInit {
       [HeroChart.CREATOR]: {},
     };
 
-    this.heroes.forEach((hero: MarvelHero) => {
+    currentHeroes.forEach((hero: MarvelHero) => {
       this.columnsToDisplay.forEach((key) => {
         const chartKey = HeroPropChartMap[key];
 
-        this.heroesGroupedData[chartKey][hero[key]] = this.heroesGroupedData[
-          chartKey
-        ][hero[key]]
-          ? this.heroesGroupedData[chartKey][hero[key]] + 1
+        heroesGroupedData[chartKey][hero[key]] = heroesGroupedData[chartKey][
+          hero[key]
+        ]
+          ? heroesGroupedData[chartKey][hero[key]] + 1
           : 1;
       });
     });
+
+    this.heroesGroupedData = { ...heroesGroupedData };
   }
 
   private _configureFilter() {

@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import * as d3 from 'd3';
 import { ChartData } from '@app/core/models/chart.model';
 
@@ -7,7 +15,7 @@ import { ChartData } from '@app/core/models/chart.model';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges {
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
   @Input() data: ChartData[] = [];
@@ -18,6 +26,14 @@ export class BarChartComponent implements OnInit {
   private height = 200 - this.margin * 2;
 
   constructor() {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && !changes['data'].firstChange) {
+      // TODO Implement update for chart to update it instead of creating a new one
+      this._clearSvg();
+      this._createSvg();
+      this._drawBars();
+    }
+  }
 
   ngOnInit(): void {
     this._createSvg();
@@ -41,9 +57,9 @@ export class BarChartComponent implements OnInit {
       .scaleBand()
       .range([0, this.width])
       .domain(data.map((d) => d.key))
-      .padding(0.2);
+      .padding(0.1);
 
-    this.svg
+    const gx = this.svg
       .append('g')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3.axisBottom(x))
@@ -54,20 +70,51 @@ export class BarChartComponent implements OnInit {
     const y = d3
       .scaleLinear()
       .domain([0, Math.max(...this.data.map((d) => d.count))])
-      .range([this.height, 0]);
+      .rangeRound([this.height, 0]);
 
     // Draw the Y-axis on the DOM
-    this.svg.append('g').call(d3.axisLeft(y));
+    const gy = this.svg.append('g').call(d3.axisLeft(y));
 
-    this.svg
-      .selectAll('bars')
+    let bar = this.svg
+      .attr('fill', 'steelblue')
+      .selectAll('rect')
       .data(data)
-      .enter()
-      .append('rect')
+      .join('rect')
       .attr('x', (d: ChartData) => x(d.key))
       .attr('y', (d: ChartData) => y(d.count))
-      .attr('width', x.bandwidth())
+      .attr('width', x.bandwidth() - 5)
       .attr('height', (d) => this.height - y(d.count))
-      .attr('fill', 'steelblue');
+      .exit()
+      .remove();
+
+    const that = this;
+
+    return Object.assign(this.svg.node(), {
+      update(updatedData) {
+        const t = that.svg.transition().duration(750);
+
+        x.domain(updatedData.map((d) => d.key));
+
+        gx.transition(t).call(d3.axisBottom(x));
+
+        y.domain([0, Math.max(...updatedData.map((d) => d.count))]);
+
+        gy.transition(t).call(d3.axisLeft(y));
+
+        bar = bar.data(updatedData).call((bar) => {
+          console.log(bar);
+          return bar
+            .transition(t)
+            .attr('x', (d: ChartData) => x(d.key))
+            .attr('y', (d: ChartData) => y(d.count))
+            .attr('width', x.bandwidth())
+            .attr('height', (d) => that.height - y(d.count));
+        });
+      },
+    });
+  }
+
+  private _clearSvg() {
+    d3.select(this.chartContainer.nativeElement).select('svg').remove();
   }
 }

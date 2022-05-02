@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ChartData } from '@app/core/models/chart.model';
 import * as d3 from 'd3';
 
@@ -7,7 +15,7 @@ import * as d3 from 'd3';
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
   @Input() data: ChartData[] = [];
   @Input() margin = 10;
@@ -19,6 +27,16 @@ export class PieChartComponent implements OnInit {
   private colors;
 
   constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && !changes['data'].firstChange) {
+      // TODO Implement update for chart to update it instead of creating a new one
+      this._clearSvg();
+      this._createSvg();
+      this._createColors();
+      this._drawChart();
+    }
+  }
 
   ngOnInit(): void {
     this._createSvg();
@@ -63,5 +81,9 @@ export class PieChartComponent implements OnInit {
       .attr('fill', (d, i) => this.colors(i))
       .attr('stroke', '#121926')
       .style('stroke-width', '1px');
+  }
+
+  private _clearSvg() {
+    d3.select(this.chartContainer.nativeElement).select('svg').remove();
   }
 }

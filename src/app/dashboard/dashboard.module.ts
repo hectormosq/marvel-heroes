@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ChartSelectorPipe } from './hero-table/chart-selector.pipe';
 import { D3ChartsModule } from '@app/core/components/d3/d3-charts.module';
 import { ChartDataPipe } from './hero-table/chart-data.pipe';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ChartDataPipe } from './hero-table/chart-data.pipe';
     MatButtonModule,
     ReactiveFormsModule,
     D3ChartsModule,
+    MatPaginatorModule,
   ],
 })
 export class DashboardModule {}

@@ -9,9 +9,9 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { D3Charts } from '@app/core/models/chart.model';
 import {
   HeroChart,
   HeroFilter,
@@ -33,6 +33,7 @@ export class HeroTableComponent implements OnChanges, OnInit {
 
   @ViewChild('pieChart') pieChart: TemplateRef<any>;
   @ViewChild('barChart') barChart: TemplateRef<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   heroesDataSource: MatTableDataSource<MarvelHero> =
     new MatTableDataSource<MarvelHero>();
@@ -74,6 +75,7 @@ export class HeroTableComponent implements OnChanges, OnInit {
 
   ngAfterViewInit() {
     this.heroesDataSource.sort = this.sort;
+    this.heroesDataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {

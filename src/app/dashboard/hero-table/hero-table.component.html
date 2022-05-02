@@ -134,6 +134,12 @@
     (click)="onClickHero(hero)"
   ></tr>
 </table>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of Heroes"
+>
+</mat-paginator>
 
 <ng-template #pieChart let-data>
   <app-bar-chart [data]="data"></app-bar-chart>
